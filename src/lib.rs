@@ -72,6 +72,12 @@ pub enum Event {
         }
     }
 
+    impl Drop for Device {
+        #[inline] fn drop(&mut self) {
+            unsafe { syscall!(CLOSE, self.0) };
+        }
+    }
+
     impl Iterator for Device {
         type Item = super::Event;
         #[inline] fn next(&mut self) -> Option<super::Event> {
