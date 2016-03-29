@@ -1,3 +1,21 @@
+//! This is a library to get joystick input.
+//!
+//! Example usage:
+//!
+//! ```
+//! let mut js_dev = joy::Device::open("/dev/input/js0\0".as_bytes()).unwrap();
+//! loop {
+//!     for ev in &mut js_dev {
+//!         use joy::Event::*;
+//!         match ev {
+//!             Axis(n, x) => println!("axis {} moved to {}", n, x),
+//!             Button(n, true) => println!("button {} pressed", n),
+//!             Button(n, false) => println!("button {} released", n),
+//!         }
+//!     }
+//! }
+//! ```
+
 #![no_std]
 
 extern crate libc;
@@ -38,9 +56,13 @@ pub enum Event {
         }
     }
 
+    /// Joystick device
+    ///
+    /// As an `Iterator`, this returns `Some` until reading input would block, then returns None.
     pub struct Device(usize);
 
     impl Device {
+        /// Opens the device at the given null-terminated path.
         #[inline] pub fn open(path: &[u8]) -> Result<Self, usize> {
             if Some(&0) != path.last() { return Err(EINVAL as usize) };
             let fd = unsafe { syscall!(OPEN, &path[0] as *const u8, O_NONBLOCK, O_RDONLY) } as isize;
