@@ -26,7 +26,9 @@ pub use native::Device;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Event {
+    /// `Button(n, b)` means button n if b { pressed } else { released }.
     Button(u8, bool),
+    /// `Axis(n, x)` means axis n moved to position x.
     Axis(u8, i16),
 }
 
