@@ -2,6 +2,11 @@
 name = "joy"
 version = "0.1.0"
 authors = ["M Farkas-Dyck <strake888@gmail.com>"]
+description = "Joystick input library"
+keywords = ["joystick", "input"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/strake/joy.rs"
+documentation = "http://rustdoc.strake.me.uk/joy/index.html"
 
 [dependencies]
 libc = "0.2"
