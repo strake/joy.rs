@@ -67,7 +67,7 @@ pub enum Event {
         /// Opens the device at the given null-terminated path.
         #[inline] pub fn open(path: &[u8]) -> Result<Self, usize> {
             if Some(&0) != path.last() { return Err(EINVAL as usize) };
-            let fd = unsafe { syscall!(OPEN, &path[0] as *const u8, O_NONBLOCK, O_RDONLY) } as isize;
+            let fd = unsafe { syscall!(OPEN, path.as_ptr(), O_NONBLOCK, O_RDONLY) } as isize;
             if fd < 0 { Err(-fd as usize) } else { Ok(Device(fd as usize)) }
         }
     }
