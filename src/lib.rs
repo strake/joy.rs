@@ -2,7 +2,7 @@
 //!
 //! Example usage:
 //!
-//! ```
+//! ```no_run
 //! let mut js_dev = joy::Device::open("/dev/input/js0\0".as_bytes()).unwrap();
 //! loop {
 //!     for ev in &mut js_dev {
