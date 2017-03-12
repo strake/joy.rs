@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/strake/joy.rs.svg?branch=master)][https://travis-ci.org/strake/joy.rs]
+
 This is a library to get joystick input.
 
 [Docs here](https://docs.rs/joy/)
