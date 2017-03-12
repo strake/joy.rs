@@ -1,6 +1,6 @@
 This is a library to get joystick input.
 
-[Docs here](http://rustdoc.strake.me.uk/joy/index.html)
+[Docs here](https://docs.rs/joy/)
 
 Example usage:
 

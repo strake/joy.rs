@@ -6,7 +6,7 @@ description = "Joystick input library"
 keywords = ["joystick", "input"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/strake/joy.rs"
-documentation = "http://rustdoc.strake.me.uk/joy/index.html"
+documentation = "https://docs.rs/joy/"
 
 [dependencies]
 libc = "0.2"
