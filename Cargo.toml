@@ -1,6 +1,6 @@
 [package]
 name = "joy"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["M Farkas-Dyck <strake888@gmail.com>"]
 description = "Joystick input library"
 keywords = ["joystick", "input"]
@@ -9,5 +9,5 @@ repository = "https://github.com/strake/joy.rs"
 documentation = "https://docs.rs/joy/"
 
 [dependencies]
-libc = "0.2"
+libc = { version = "0.2", default-features = false }
 syscall = "0.2"
