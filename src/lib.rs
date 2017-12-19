@@ -3,7 +3,10 @@
 //! Example usage:
 //!
 //! ```no_run
-//! let mut js_dev = joy::Device::open("/dev/input/js0\0".as_bytes()).unwrap();
+//! # extern crate joy;
+//! # #[macro_use] extern crate null_terminated;
+//! # fn main() {
+//! let mut js_dev = joy::Device::open(str0!("/dev/input/js0")).unwrap();
 //! loop {
 //!     for ev in &mut js_dev {
 //!         use joy::Event::*;
@@ -14,11 +17,13 @@
 //!         }
 //!     }
 //! }
+//! # }
 //! ```
 
 #![no_std]
 
 extern crate libc;
+extern crate null_terminated;
 #[macro_use]
 extern crate syscall;
 
@@ -34,7 +39,8 @@ pub enum Event {
 
 #[cfg(target_os = "linux")] mod native {
     use core::mem;
-    use libc::{ O_NONBLOCK, O_RDONLY, EINVAL };
+    use libc::{ O_NONBLOCK, O_RDONLY };
+    use null_terminated::Nul;
 
     const EVENT_BUTTON: u8 = 0x01;
     const EVENT_AXIS  : u8 = 0x02;
@@ -64,9 +70,8 @@ pub enum Event {
     pub struct Device(usize);
 
     impl Device {
-        /// Opens the device at the given null-terminated path.
-        #[inline] pub fn open(path: &[u8]) -> Result<Self, usize> {
-            if Some(&0) != path.last() { return Err(EINVAL as usize) };
+        /// Opens the device at the given path.
+        #[inline] pub fn open(path: &Nul<u8>) -> Result<Self, usize> {
             let fd = unsafe { syscall!(OPEN, path.as_ptr(), O_NONBLOCK, O_RDONLY) } as isize;
             if fd < 0 { Err(-fd as usize) } else { Ok(Device(fd as usize)) }
         }
